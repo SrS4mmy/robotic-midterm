@@ -1,3 +1,3 @@
 # Aku Jawa Kau Sigma
 
-Sebuah repository matkul UII
+Sebuah repository tugas uas matkul UII

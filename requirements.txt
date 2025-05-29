@@ -1,5 +1,7 @@
 roboticstoolbox-python
-numpy
+numpy==1.26.4
 scipy
 python-math
-matplotlib
+matplotlib==3.5.3
+pyqt5
+pyqt6

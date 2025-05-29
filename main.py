@@ -1,9 +1,10 @@
-
 import preprocess
 import showenv
+import time
 
 preprocess.main()
 showenv.main()
+time.sleep(1) # cek bentar le
 
 print("early process completed")
 

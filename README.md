@@ -1,3 +1,3 @@
-# Aku Jawa Kau Sigma
+#Repo UTS Robotik dan Aplikasi
 
-Sebuah repository tugas uas matkul UII
+Sebuah repository tugas uas matkul robotika dan aplikasi UII.

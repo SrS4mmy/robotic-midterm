@@ -9,7 +9,7 @@ matplotlib.use('TkAgg')
 from roboticstoolbox import ET as ET
 from math import pi, radians as rad
 
-
+# struktur
 scara = (
     ET.tz(0.2) *
     ET.Rz() * 
@@ -36,6 +36,7 @@ q = [
     rad(0)      # q5
     ] 
 
+# plot
 scara.fkine(q).printline()
 scara.teach(q)
 

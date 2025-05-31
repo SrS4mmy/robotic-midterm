@@ -10,6 +10,7 @@ matplotlib.use('TkAgg')
 from roboticstoolbox import ET
 from math import pi, radians as rad
 
+# bikin robot 
 scara = (
     ET.Rz()* # 360deg
     ET.tz(qlim=[0.3,0.5])*ET.ty(qlim=[0.15,0.25])*
@@ -28,5 +29,6 @@ q = [
     0
     ]
 
+# plot
 scara.fkine(q).printline()
 scara.teach(q)

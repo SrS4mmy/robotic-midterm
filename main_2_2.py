@@ -6,6 +6,7 @@ matplotlib.use('TkAgg')
 from roboticstoolbox import ET, ETS
 from math import radians as rad
 
+#struktur
 scara_ets = ETS(
     ET.tz(0.2) +
     ET.Rz() +                                    # q0

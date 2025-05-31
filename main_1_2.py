@@ -4,7 +4,7 @@ matplotlib.use('TkAgg')
 from roboticstoolbox import ET, ETS
 from math import radians as rad
 
-# ikine use ETS
+# ikine use ETS utk struktur
 scara = ETS(
     ET.Rz() +                          # q1
     ET.tz(qlim=[0.3,0.5]) +            # q2
@@ -25,6 +25,7 @@ q_true = [
     rad(10)    # q6: Ry
 ]
 
+# ikuti documentation di github
 T_goal = scara.fkine(q_true)
 
 # DOCnya aneh but ok. why? atleast it works

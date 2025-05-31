@@ -1,4 +1,4 @@
-# Repo UTS Robotik dan Aplikasi
+# Repo UTS Robotika dan Aplikasi
 
 Sebuah repository tugas uts matkul robotika dan aplikasi UII.
 

@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 import os
 
 # Create output directory
-os.makedirs('ikine_solutions', exist_ok=True)
+os.makedirs('ikine_solutions/ikine_sol_2', exist_ok=True)
 
-# Define your robot ETS chain (same as you gave)
+# Define the SCARA-like robot using ETS
 scara_ets = ETS(
     ET.tz(0.2) +
     ET.Rz() +                                   # q0
@@ -28,7 +28,7 @@ scara_ets = ETS(
     ET.tz(-0.2)
 )
 
-# Base joint values q_init
+# Base initial joint values
 q_init = [
     rad(0),     # q0
     rad(15),    # q1
@@ -38,75 +38,76 @@ q_init = [
     rad(0)      # q5
 ]
 
-# Variation values for q2, q4, q5
-q2_vals = [rad(110), rad(120), rad(130)]      # around 120 degrees
-q4_vals = [rad(-30), rad(0), rad(30)]
-q5_vals = [rad(-60), rad(0), rad(45)]
+# Small gentle variation ranges +- 20 deg
+q1_vals = [rad(-5), rad(15), rad(35)]     # Base joint rotation
+q2_vals = [rad(100), rad(120), rad(140)]  # Arm vertical
+q4_vals = [rad(-30), rad(0), rad(30)]     # Joint 4 swing
+q5_vals = [rad(-45), rad(0), rad(45)]     # Final wrist rotation
 
 qs = []
 
-# Vary q2 only (index 2)
+# Vary q1 slightly
+for val in q1_vals:
+    q = q_init.copy()
+    q[1] = val
+    qs.append(q)
+
+# Vary q2 slightly
 for val in q2_vals:
     q = q_init.copy()
     q[2] = val
     qs.append(q)
 
-# Vary q4 only (index 4)
+# Vary q4 more noticeably
 for val in q4_vals:
     q = q_init.copy()
     q[4] = val
     qs.append(q)
 
-# Vary q5 only (index 5)
+# Vary q5 more noticeably
 for val in q5_vals:
     q = q_init.copy()
     q[5] = val
     qs.append(q)
 
-# Add 6 combos varying q2 & q4 (first two vals of q2)
-for val2 in q2_vals[:2]:
-    for val4 in q4_vals[:3]:
-        q = q_init.copy()
-        q[2] = val2
-        q[4] = val4
-        qs.append(q)
-        if len(qs) >= 15:
-            break
-    if len(qs) >= 15:
-        break
+# If under 15, vary q1 + q4 combinations
+if len(qs) < 15:
+    for val1 in q1_vals:
+        for val4 in q4_vals:
+            if len(qs) >= 15:
+                break
+            q = q_init.copy()
+            q[1] = val1
+            q[4] = val4
+            qs.append(q)
 
-# Run IK and save images + print q text on image
+# IK solve and image dump
 for i, q_try in enumerate(qs, 1):
     T_goal = scara_ets.fkine(q_try)
-    
-    # Use IK solver, initialize at q_try to help convergence
     sol = scara_ets.ikine_LM(T_goal, q0=q_try)
 
     if sol.success:
         q_sol = sol.q
-        print(f"Solution #{i} success: {[round(x,4) for x in q_sol]}")
+        print(f"Solution #{i} success: {[round(np.degrees(x), 2) for x in q_sol]}")
 
-        # Plot robot pose
         scara_ets.plot(q_sol, block=False)
         fig = plt.gcf()
-        
-        # Add joint values as text on image
+
+        # Annotate joint values
         q_deg = [round(np.degrees(x), 1) for x in q_sol]
-        textstr = '\n'.join([f'q{i}: {val}°' for i, val in enumerate(q_deg)])
-        
-        # Place text box in upper left corner
+        textstr = '\n'.join([f'q{j}: {val}°' for j, val in enumerate(q_deg)])
+
         plt.figtext(
             0.02, 0.98, textstr,
             fontsize=10, verticalalignment='top',
             bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5)
         )
 
-        
-        # Save image
-        filename = f'ikine_solutions/solution_{i}.png'
+        # Save figure
+        filename = f'ikine_solutions/ikine_sol_2/solution_{i}.png'
         fig.savefig(filename)
         plt.close(fig)
     else:
         print(f"Solution #{i} IK failed")
 
-print("Done! Images and q results saved in ./ikine_solutions/")
+print("Done! Images and q results saved in ./ikine_solutions/ikine_sol_2/")

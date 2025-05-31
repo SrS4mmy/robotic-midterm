@@ -3,8 +3,11 @@
 # import showenv
 # preprocess.main()
 # showenv.main()
+import matplotlib
+matplotlib.use('TkAgg')
+
 from roboticstoolbox import ET as ET
-from math import pi, ETdians as rad
+from math import pi, radians as rad
 
 
 scara = (

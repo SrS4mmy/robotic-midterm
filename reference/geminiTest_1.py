@@ -1,3 +1,4 @@
+# image extraction for inverse kine soal 1
 import matplotlib
 matplotlib.use('TkAgg')
 

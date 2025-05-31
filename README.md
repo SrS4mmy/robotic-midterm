@@ -18,3 +18,6 @@ FOR LINUX:
 - silahkan gunakan preprocess dan showenv untuk memastikan anda menggunakan venv yang benar
 - tidak perlu menambahkan atribut TkAgg pada untuk matplotlib, namun gunakan backend pyqt6 dengan cara
 pip install pyqt6
+
+Update 31/5/2025:
+- Adds Tool for Export image di ./reference/, made with GeminiAI with prompt "Make me 15 q combination that might works, export the image and show the result too in terminal"

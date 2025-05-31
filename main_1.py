@@ -3,25 +3,28 @@
 # import showenv
 # preprocess.main()
 # showenv.main()
+import matplotlib
+matplotlib.use('TkAgg')
 
-# The fun part (pls banh aku nak tido)
+# The fun part (pls banh aku nak tido ZZZZzzzzz)
 from roboticstoolbox import ET
-from math import pi
+from math import pi, radians as rad
 
 scara = (
     ET.Rz()* # 360deg
     ET.tz(qlim=[0.3,0.5])*ET.ty(qlim=[0.15,0.25])*
     ET.Ry()*
-    ET.Rz(qlim=[-2*pi/3,2*pi/3])* #putar naik turun 180deg max +90 - 90
+    ET.Rz(qlim=[rad(-100),rad(45)])* # tapi berputar putar (180 derajat)
     ET.ty(0.15)*ET.Ry()
 )
 
+# init pos
 q = [
     0,
     0.3,
     0,
     0.15,
-    pi/2,
+    rad(45),  # 90 derajat
     0
     ]
 
